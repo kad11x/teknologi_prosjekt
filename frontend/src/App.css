@@ -1,0 +1,91 @@
+/* Fjerner duplikate stiler */
+.rom-boks, .info-boks {
+  border: none;
+  padding: 1px;
+  text-align: center;
+  height: 400px;
+  width: 550px;
+  position: relative;
+  object-fit: cover;
+}
+
+.rom-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* For å sentrere boksene horisontalt */
+  gap: 1px; /* Avstand mellom boksene */
+}
+
+.rom-boks {
+  flex: 1 0 calc(90% - 1px); /* Ta opp 50% av bredden minus gap */
+  max-width: calc(90% - 1px); /* Begrenser maksbredden slik at det kun er 2 bokser per rad */
+  position: relative;
+}
+
+.rom-boks-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.rom-bilde {
+  width: 100%; /* Fyller hele boksen */
+  height: auto; /* Holder bildeproporsjoner */
+  display: block;
+  margin: 0 auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  object-fit: cover; /* Tilføyd for å dekke hele boksen uten å endre proporsjonene */
+  padding: 0;
+}
+
+nav {
+  background-color: rgb(18, 18, 19);
+  margin-top: 5px;
+  margin-bottom: 5px;
+  display: flex;
+  justify-content: center; /* For å sentrere linkene i midten */
+}
+
+nav a {
+  margin-right: 10px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.info-section {
+  margin-top: 10px;
+}
+
+/* Fjerner styling fra info teksten */
+.info-boks {
+  border: none;
+  height: auto;
+  padding: 0;
+}
+
+/* Legger til de nye stilene for den oppdaterte Navbar-komponenten */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar-logo img {
+  height: 50px; /* Øker størrelsen på logoen */
+}
+
+.navbar-links {
+  display: flex;
+  gap: 10px;
+  transition: all 0.3s;
+}
+
+.navbar-links a {
+  text-decoration: none;
+  color: inherit;
+  font-size: 18px;     /* for å øke skriftstørrelsen */
+  padding: 5px 10px;   /* for å gi mer plass rundt linkene */
+  font-weight: 600;    /* for å gjøre teksten fetere */
+  text-transform: uppercase; }

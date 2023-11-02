@@ -1,0 +1,140 @@
+body {
+    background-color: #F5F5F5;  /* Lys grå farge */
+}
+
+.aktiv-student-container {
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+}
+
+.users-section {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 1px;
+    border-right: 1px solid black;
+    width: 155px;
+}
+
+.user-row {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.status-circle {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.online {
+    background-color: green;
+}
+
+.offline {
+    background-color: red;
+}
+
+.user-name {
+    font-weight: normal;
+}
+
+.content-wrapper {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.scrollspy-example {
+    position: relative;
+    height: 200px;
+    overflow-y: scroll;
+    background-color: #f8f9fa;
+    padding: 10px;
+    border: 1px solid #dee2e6;
+}
+
+.list-group-item.active {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.list-group .list-group-item {
+    border-radius: 0;  /* Makes the list items rectangular */
+}
+
+
+
+
+.threads-section {
+    border: 1px solid black;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+
+
+ .thread{
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid black;
+}
+
+.see-more{
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid black;
+}
+
+.chat-message {
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid black;
+}
+
+.thread-preview {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid black;
+}
+
+.preview-title {
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.chat-preview {
+    border: 1px solid black;
+    padding: 10px;
+}
+
+.chat-section {
+    flex: 60%; /* Den opptar 60% av totalhøyden */
+    border: 1px solid black;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.chat-message.self {
+    background-color: #f1f1f1;
+    text-align: right;
+}
+
+.chat-input {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.chat-input input {
+    flex: 1;
+    padding: 10px;
+}
+
+.chat-input button {
+    padding: 10px 20px;
+}
