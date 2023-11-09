@@ -41,7 +41,7 @@ function Chatt() {
     };
   
     return (
-      <div className="container fluid">
+      <div className="container">
         <div className="chat-container">
           <div className="chat">
             {messages.map((value, index) => {

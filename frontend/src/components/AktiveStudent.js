@@ -183,7 +183,7 @@ ${questNumber}`);
             <div key={index}>{message}</div>
           ))}
         </div>
-        <div className="chat-input">
+        <div className="container-xl">
         <Chatt/>
           
         </div>
