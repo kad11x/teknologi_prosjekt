@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './AktivStudent.css'
 import CryptoJS from 'crypto-js';
+import Navbar from './Navbar';
+import Chatt from './Chatt';
 
 
 function AktivStudent() {
@@ -70,7 +72,7 @@ function AktivStudent() {
   }
 
   function displayQuestInfo(questNumber) {
-    // Her kan du for eksempel vise en modal eller et pop-up vindu med informasjonen tilhørende questen.
+
     alert(`This is some placehol der content for the scrollspy page. Note that as you scroll down the page, the appropriate navigation link is highlighted. It's repeated throughout the component example. We keep adding some more example copy here to emphasize the scrolling and highlighting.
                 This is some placeholder content for the scrollspy page. Note that as you scroll down the page, the appropriate navigation link is highlighted. It's repeated throughout the component example. We keep adding some more example copy here to emphasize the scrolling and highlighting.
                 This is some placeholder content for the scrollspy page. Note that as you scroll down the page, the appropriate navigation link is highlighted. It's repeated throughout the component example. We keep adding some more example copy here to emphasize the scrolling and highlighting.
@@ -120,6 +122,8 @@ ${questNumber}`);
   
 
   return (
+    <>
+    <Navbar/>
     <div className="aktiv-student-container">
         <div className="users-section">
             {sortedUsers.map(user => (
@@ -180,17 +184,14 @@ ${questNumber}`);
           ))}
         </div>
         <div className="chat-input">
-          <input
-            type="text"
-            placeholder="Skriv tekst"
-            value={newMessage}
-            onChange={(e) => setNewMessage(e.target.value)}
-          />
-          <button onClick={() => sendMessage(newMessage)}>Send</button>
+        <Chatt/>
+          
         </div>
       </div>
         </div>
     </div>
+    
+    </>
 );
 }
 
