@@ -3,6 +3,10 @@ from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
 from datetime import datetime
 import json
+from Crypto.Cipher import AES
+from Crypto.Util.Padding import pad, unpad
+from Crypto.Random import get_random_bytes
+import base64
 
 app = FastAPI()
 
@@ -13,6 +17,24 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+key = b"OneChatIsTheBest"  # nøkkelen
+
+
+def encrypt_message(message):
+    cipher = AES.new(key, AES.MODE_CBC)
+    ct_bytes = cipher.encrypt(pad(message.encode(), AES.block_size))
+    iv = base64.b64encode(cipher.iv).decode("utf-8")
+    ct = base64.b64encode(ct_bytes).decode("utf-8")
+    return iv, ct
+
+
+def decrypt_message(iv, ct):
+    iv = base64.b64decode(iv)
+    ct = base64.b64decode(ct)
+    cipher = AES.new(key, AES.MODE_CBC, iv)
+    pt = unpad(cipher.decrypt(ct), AES.block_size)
+    return pt.decode()
 
 
 class ConnectionManager:
@@ -52,45 +74,16 @@ async def websocket_endpoint(websocket: WebSocket, client_id: int):
     try:
         while True:
             data = await websocket.receive_text()
-            # await manager.send_personal_message(f"You wrote: {data}", websocket)
-            message = {"time": current_time, "clientId": client_id, "message": data}
+            iv, encrypted_message = encrypt_message(data)
+            encrypted_data = json.dumps({"iv": iv, "message": encrypted_message})
+            message = {
+                "time": current_time,
+                "clientId": client_id,
+                "message": encrypted_data,
+            }
             await manager.broadcast(json.dumps(message))
 
     except WebSocketDisconnect:
         manager.disconnect(websocket)
         message = {"time": current_time, "clientId": client_id, "message": "Offline"}
         await manager.broadcast(json.dumps(message))
-
-
-"""from fastapi import FastAPI, WebSocket, WebSocketDisconnect
-from cryptography.fernet import Fernet
-
-app = FastAPI()
-
-# Dette bør være en kjent hemmelighet mellom serveren og klientene, ikke genereres ved hver oppstart
-key = Fernet.generate_key()
-cipher_suite = Fernet(key)
-
-# En liste for å holde styr på tilkoblede klienter
-connected_clients = []
-
-
-@app.websocket("/ws")
-async def websocket_endpoint(websocket: WebSocket):
-    await websocket.accept()
-    connected_clients.append(websocket)
-    try:
-        while True:
-            encrypted_data = await websocket.receive_text()
-            decrypted_data = cipher_suite.decrypt(encrypted_data.encode()).decode()
-
-            # Her kan du implementere din egen logikk for å håndtere mottatt data
-            # For nå, vil vi bare ekko meldingen tilbake til alle tilkoblede klienter
-
-            encrypted_responses = cipher_suite.encrypt(decrypted_data.encode()).decode()
-            for client in connected_clients:
-                # Ikke send meldingen tilbake til senderen
-                if client != websocket:
-                    await client.send_text(encrypted_responses)
-    except WebSocketDisconnect:
-        connected_clients.remove(websocket)"""

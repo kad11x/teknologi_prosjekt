@@ -81,45 +81,8 @@ ${questNumber}`);
 
   const sortedUsers = users.sort((a, b) => b.online - a.online);
 
-  const [messages, setMessages] = useState([]);
-  const [newMessage, setNewMessage] = useState('');
-  const ws = useRef(null);
-  const secretKey = 'hemmeligNøkkel';
 
-  // Krypter meldingen før sending
-  const encryptMessage = (message) => CryptoJS.AES.encrypt(message, secretKey).toString();
 
-  // Dekrypter meldingen etter mottak
-  const decryptMessage = (encryptedMessage) => {
-    const bytes = CryptoJS.AES.decrypt(encryptedMessage, secretKey);
-    return bytes.toString(CryptoJS.enc.Utf8);
-  };
-
-  useEffect(() => {
-    ws.current = new WebSocket("ws://192.168.1.5:8000/ws");
-    ws.current.onopen = () => console.log("ws opened");
-    ws.current.onmessage = (e) => {
-      const decryptedMessage = decryptMessage(e.data);
-      setMessages(prev => [...prev, decryptedMessage]);
-    };
-    ws.current.onclose = () => console.log("ws closed");
-
-    // Rengjøringsfunksjon som lukker WebSocket-tilkoblingen når komponenten avmonteres
-    return () => {
-      ws.current.close();
-    };
-  }, []);
-
-  const sendMessage = () => {
-    if (newMessage.trim() !== '') {
-      const encryptedMessage = encryptMessage(newMessage);
-      ws.current.send(encryptedMessage);
-      setMessages([...messages, newMessage]); // Legg til den nye meldingen i listen
-      setNewMessage(''); // Tøm inputfeltet etter sending
-    }
-  };
-
-  
 
   return (
     <>
@@ -133,26 +96,25 @@ ${questNumber}`);
                 </div>
             ))}
         </div>
-
         <div className="content-wrapper">
           <div className="row">
             <div className="col-4">
               <div id="list-example" class="list-group">
               <button className="list-group-item list-group-item-action action" onClick={() => handleScrollTo('list-item-1')}>Quest1</button>
-              <div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                <div class="progress-bar" style={{ width: '50%' }}>50%</div>
+              <div className="progress" role="progressbar" aria-label="Example with label" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                <div className="progress-bar" style={{ width: '50%' }}>50%</div>
             </div>
               <button className="list-group-item list-group-item-action" onClick={() => handleScrollTo('list-item-2')}>Quest2</button>
-                <div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                  <div class="progress-bar" style={{ width: '25%' }}>25%</div>
+                <div className="progress" role="progressbar" aria-label="Example with label" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                  <div className="progress-bar" style={{ width: '25%' }}>25%</div>
                 </div>
               <button className="list-group-item list-group-item-action" onClick={() => handleScrollTo('list-item-3')}>Quest3</button>
-                <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                  <div class="progress-bar" style={{ width: '100%', backgroundColor: 'green'  }}>Fullført</div>
+                <div className="progress" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                  <div className="progress-bar" style={{ width: '100%', backgroundColor: 'green'  }}>Fullført</div>
                 </div>
               </div>
             </div>
-            <div class="col-8">
+            <div className="col-8">
               <div data-bs-spy="scroll" data-bs-target="#list-example" data-bs-smooth-scroll="true" className="scrollspy-example" tabindex="0">
                 <h7 id="list-item-1">Quest1</h7>
                 <img src={process.env.PUBLIC_URL + '/bilder/headsett1.jpg'} alt="Quest 1" onClick={() => displayQuestInfo(1)}/>
@@ -178,11 +140,7 @@ ${questNumber}`);
             </div>
 
             <div className="chat-section">
-        <div className="chat-messages">
-          {messages.map((message, index) => (
-            <div key={index}>{message}</div>
-          ))}
-        </div>
+       
         <div className="container-xl">
         <Chatt/>
           
