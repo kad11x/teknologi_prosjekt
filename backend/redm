@@ -1,0 +1,9 @@
+nøvednig installasjon:
+
+pip install fastapi uvicorn
+pip install cryptograf
+
+
+
+for å få serveren til å tilate alle koblinger av porter
+uvicorn server:app --reload --host 0.0.0.0
