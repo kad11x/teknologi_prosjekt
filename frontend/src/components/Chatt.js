@@ -29,7 +29,7 @@ function Chatt() {
     };
 
     useEffect(() => {
-        const url = "ws://192.168.1.5:8000/ws/" + clientId;
+        const url = "ws://158.39.166.139:8000/ws/" + clientId;
         const ws = new WebSocket(url);
 
         ws.onopen = () => {

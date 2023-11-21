@@ -1,0 +1,1 @@
+for å bruke skole nette, bruk ip adresse: 158.39.166.139
